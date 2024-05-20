@@ -2,8 +2,11 @@ package com.tyhoo.android.nba.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,20 +51,33 @@ fun NewsListScreen(
 @Composable
 fun NewsItem(news: NewsData) {
     Row(modifier = Modifier.fillMaxWidth()) {
+        val imageUrl = news.thumbnailY.ifEmpty { news.thumbnail }
+
         // 新闻缩略图
         AsyncImage(
-            model = news.thumbnailY,
+            model = imageUrl,
             contentDescription = news.title,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(width = 150.dp, height = 200.dp)
                 .padding(start = 8.dp, bottom = 8.dp)
         )
 
-        Text(
-            text = news.title,
-            style = TextStyle(fontSize = 20.sp),
-            modifier = Modifier.padding(start = 8.dp)
-        )
+        Column(modifier = Modifier.height(200.dp)) {
+            Text(
+                text = news.title,
+                style = TextStyle(fontSize = 20.sp),
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+            )
+
+            Spacer(modifier = Modifier.weight(1F))
+
+            Text(
+                text = news.publishTime,
+                style = TextStyle(fontSize = 16.sp),
+                modifier = Modifier.padding(start = 8.dp, bottom = 32.dp)
+            )
+        }
     }
 }
 
@@ -68,10 +85,11 @@ fun NewsItem(news: NewsData) {
 @Composable
 fun PreviewNewsItem() {
     val testNews = NewsData(
-        "2405011707186301",
+        "",
         "2024 NBA季后赛最新对阵图",
-        "https://img.nba.cn/image/nms/cms/aeccc0d5-6498-4842-a0e7-a3686c4f053f/112.jpg?auth_key=1715939100-1715939100-0-449506a2a2488039445bd6661fd1ca13&cdn_provider=110&image_process=resize,w_660&ver=0.1.6",
-        "2024-05-17 14:10:36",
+        "",
+        "",
+        "2024-05-17 14:10:36"
     )
     Box(modifier = Modifier.background(color = Color.White)) {
         NewsItem(news = testNews)

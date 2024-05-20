@@ -12,6 +12,7 @@ data class NewsResponse(
 data class NewsData(
     @field:SerializedName("news_id") val newsId: String,
     @field:SerializedName("title") val title: String,
+    @field:SerializedName("thumbnail") val thumbnail: String,
     @field:SerializedName("thumbnail_y") val thumbnailY: String,
     @field:SerializedName("publish_time") val publishTime: String
 )

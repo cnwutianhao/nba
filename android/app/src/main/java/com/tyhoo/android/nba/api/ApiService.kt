@@ -1,5 +1,6 @@
 package com.tyhoo.android.nba.api
 
+import com.tyhoo.android.nba.data.NBAUrls
 import com.tyhoo.android.nba.data.NewsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -34,16 +35,14 @@ interface ApiService {
     ): NewsResponse
 
     companion object {
-        private const val BASE_URL = "https://china.nba.cn/"
-
-        fun create(): ApiService {
+        fun create(url: NBAUrls): ApiService {
             val logger = HttpLoggingInterceptor().apply { level = Level.BASIC }
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)
                 .build()
 
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(url.baseUrl)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

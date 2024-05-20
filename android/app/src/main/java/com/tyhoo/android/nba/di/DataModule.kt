@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -15,7 +16,9 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideNewsListDataProvider(service: ApiService): NewsListDataProvider {
-        return NewsListDataProviderImpl(service)
+    fun provideNewsListDataProvider(
+        @Named("ChinaNBA") apiService: ApiService
+    ): NewsListDataProvider {
+        return NewsListDataProviderImpl(apiService)
     }
 }

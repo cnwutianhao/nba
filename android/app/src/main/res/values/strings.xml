@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NBA掌中宝</string>
 
-    <string name="news">资讯</string>
+    <string name="news">新闻</string>
     <string name="teams">球队</string>
     <string name="players">球员</string>
     <string name="schedule">赛程</string>

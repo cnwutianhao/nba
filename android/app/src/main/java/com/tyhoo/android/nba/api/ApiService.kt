@@ -2,6 +2,7 @@ package com.tyhoo.android.nba.api
 
 import com.tyhoo.android.nba.data.NBAUrls
 import com.tyhoo.android.nba.data.NewsResponse
+import com.tyhoo.android.nba.data.TeamsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -33,6 +34,14 @@ interface ApiService {
         @Query("channel") channel: String = "nba",
         @Query("sign") sign: String = "48da38cc43775e0efea30a3726328530"
     ): NewsResponse
+
+    /**
+     * 球队列表
+     *
+     * https://china.nba.cn/stats2/league/conferenceteamlist.json
+     */
+    @GET("stats2/league/conferenceteamlist.json")
+    suspend fun teamList(): TeamsResponse
 
     companion object {
         fun create(url: NBAUrls): ApiService {

@@ -3,6 +3,8 @@ package com.tyhoo.android.nba.di
 import com.tyhoo.android.nba.api.ApiService
 import com.tyhoo.android.nba.data.NewsListDataProvider
 import com.tyhoo.android.nba.data.NewsListDataProviderImpl
+import com.tyhoo.android.nba.data.TeamListDataProvider
+import com.tyhoo.android.nba.data.TeamListDataProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +22,13 @@ class DataModule {
         @Named("ChinaNBA") apiService: ApiService
     ): NewsListDataProvider {
         return NewsListDataProviderImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTeamListDataProvider(
+        @Named("ChinaNBA") apiService: ApiService
+    ): TeamListDataProvider {
+        return TeamListDataProviderImpl(apiService)
     }
 }

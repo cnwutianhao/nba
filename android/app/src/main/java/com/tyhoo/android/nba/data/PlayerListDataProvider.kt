@@ -14,6 +14,10 @@ class PlayerListDataProviderImpl @Inject constructor(
         network: String,
         timestamp: String
     ): List<PlayersData> {
-        return service.playerList(network = network, t = timestamp).data
+        return runCatching {
+            service.playerList(network = network, t = timestamp).data
+        }.getOrElse {
+            emptyList()
+        }
     }
 }

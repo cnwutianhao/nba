@@ -11,6 +11,10 @@ class NewsListDataProviderImpl @Inject constructor(
     private val service: ApiService
 ) : NewsListDataProvider {
     override suspend fun provideNewsListData(timestamp: String): List<NewsData> {
-        return service.newsList(t = timestamp).data
+        return runCatching {
+            service.newsList(t = timestamp).data
+        }.getOrElse {
+            emptyList()
+        }
     }
 }

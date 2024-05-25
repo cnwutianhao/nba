@@ -14,6 +14,10 @@ class TeamListDataProviderImpl @Inject constructor(
         network: String,
         timestamp: String
     ): TeamsData {
-        return service.teamList(network = network, t = timestamp).data
+        return runCatching {
+            service.teamList(network = network, t = timestamp).data
+        }.getOrElse {
+            TeamsData(conferences = emptyList())
+        }
     }
 }

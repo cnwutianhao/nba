@@ -3,32 +3,35 @@ package com.tyhoo.android.nba.data
 import com.google.gson.annotations.SerializedName
 
 data class TeamsResponse(
-    @field:SerializedName("payload") val payload: TeamsPayload
+    @field:SerializedName("data") val data: TeamsData
 )
 
-data class TeamsPayload(
-    @field:SerializedName("listGroups") val listGroups: List<TeamsListGroup>
+data class TeamsData(
+    @field:SerializedName("conferences") val conferences: List<TeamsConference>
 )
 
-data class TeamsListGroup(
-    @field:SerializedName("teams") val teams: List<TeamsTeam>,
-    @field:SerializedName("conference") val conference: String
+data class TeamsConference(
+    @field:SerializedName("name") val name: String,
+    @field:SerializedName("divisions") val divisions: List<TeamsDivision>
+)
+
+data class TeamsDivision(
+    @field:SerializedName("name") val name: String,
+    @field:SerializedName("teams") val teams: List<TeamsTeam>
 )
 
 data class TeamsTeam(
-    @field:SerializedName("profile") val profile: TeamsTeamProfile
-)
-
-data class TeamsTeamProfile(
-    @field:SerializedName("abbr") val abbr: String,
-    @field:SerializedName("city") val city: String,
-    @field:SerializedName("cityEn") val cityEn: String,
-    @field:SerializedName("code") val code: String,
-    @field:SerializedName("conference") val conference: String,
-    @field:SerializedName("displayAbbr") val displayAbbr: String,
-    @field:SerializedName("displayConference") val displayConference: String,
-    @field:SerializedName("division") val division: String,
-    @field:SerializedName("id") val id: String,
-    @field:SerializedName("name") val name: String,
-    @field:SerializedName("nameEn") val nameEn: String
+    @field:SerializedName("Season") val season: String,
+    @field:SerializedName("TeamID") val teamId: String,
+    @field:SerializedName("Name") val name: String,
+    @field:SerializedName("Abbr") val abbr: String,
+    @field:SerializedName("Code") val code: String,
+    @field:SerializedName("Arenaname") val arenaName: String,
+    @field:SerializedName("City") val city: String,
+    @field:SerializedName("Country") val country: String,
+    @field:SerializedName("Conference") val conference: String,
+    @field:SerializedName("Division") val division: String,
+    @field:SerializedName("State") val state: String,
+    @field:SerializedName("Stateabbr") val stateAbbr: String,
+    @field:SerializedName("IstGroup") val iStGroup: String
 )

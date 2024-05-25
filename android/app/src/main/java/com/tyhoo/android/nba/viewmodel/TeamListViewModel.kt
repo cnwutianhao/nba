@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tyhoo.android.nba.data.TeamsListGroup
 import com.tyhoo.android.nba.data.TeamListRepository
+import com.tyhoo.android.nba.data.TeamsTeam
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +28,7 @@ class TeamListViewModel @Inject internal constructor(
         }
     }
 
-    private val _teamList = MutableLiveData<List<TeamsListGroup>>()
-    val teamList: LiveData<List<TeamsListGroup>>
+    private val _teamList = MutableLiveData<List<TeamsTeam>>()
+    val teamList: LiveData<List<TeamsTeam>>
         get() = _teamList
 }

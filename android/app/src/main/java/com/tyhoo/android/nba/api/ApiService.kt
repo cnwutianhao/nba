@@ -39,10 +39,22 @@ interface ApiService {
     /**
      * 球队列表
      *
-     * https://china.nba.cn/stats2/league/conferenceteamlist.json
+     * https://api.nba.cn/sib/v2/conference/teams?app_key=tiKB2tNdncnZFPOi&app_version=1.1.0&channel=NBA&device_id=9199617a46dae67b127c83fdb21d908d&install_id=531314079&network=N%2FA&os_type=3&os_version=1.0.0&sign=sign_v2&sign2=4F7FC9A7FDCFC1A00270E24B36730643D57F0C53CC01A0D93E67DF6C2B001FB3&t=1716544418
      */
-    @GET("stats2/league/conferenceteamlist.json")
-    suspend fun teamList(): TeamsResponse
+    @GET("sib/v2/conference/teams")
+    suspend fun teamList(
+        @Query("app_key") appKey: String = "tiKB2tNdncnZFPOi",
+        @Query("app_version") appVersion: String = "1.1.0",
+        @Query("channel") channel: String = "NBA",
+        @Query("device_id") deviceId: String = "9199617a46dae67b127c83fdb21d908d",
+        @Query("install_id") installId: String = "531314079",
+        @Query("network") network: String,
+        @Query("os_type") osType: String = "3",
+        @Query("os_version") osVersion: String = "1.0.0",
+        @Query("sign") sign: String = "sign_v2",
+        @Query("sign2") sign2: String = "4F7FC9A7FDCFC1A00270E24B36730643D57F0C53CC01A0D93E67DF6C2B001FB3",
+        @Query("t") t: String
+    ): TeamsResponse
 
     /**
      * 球员列表

@@ -29,7 +29,7 @@ class DataModule {
     @Singleton
     @Provides
     fun provideTeamListDataProvider(
-        @Named("ChinaNBA") apiService: ApiService
+        @Named("ApiNBA") apiService: ApiService
     ): TeamListDataProvider {
         return TeamListDataProviderImpl(apiService)
     }

@@ -14,7 +14,8 @@ data class NewsData(
     @field:SerializedName("title") val title: String,
     @field:SerializedName("thumbnail") val thumbnail: String,
     @field:SerializedName("thumbnail_y") val thumbnailY: String,
-    @field:SerializedName("publish_time") val publishTime: String
+    @field:SerializedName("publish_time") val publishTime: String,
+    @field:SerializedName("source") val source: String
 )
 
 data class NewsPagination(

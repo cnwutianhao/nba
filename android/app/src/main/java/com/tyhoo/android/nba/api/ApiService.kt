@@ -3,6 +3,7 @@ package com.tyhoo.android.nba.api
 import com.tyhoo.android.nba.data.NBAUrls
 import com.tyhoo.android.nba.data.NewsResponse
 import com.tyhoo.android.nba.data.PlayersResponse
+import com.tyhoo.android.nba.data.SchedulesResponse
 import com.tyhoo.android.nba.data.TeamsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -78,6 +79,28 @@ interface ApiService {
         @Query("sign2") sign2: String = "4F7FC9A7FDCFC1A00270E24B36730643D57F0C53CC01A0D93E67DF6C2B001FB3",
         @Query("t") t: String
     ): PlayersResponse
+
+    /**
+     * 赛程列表
+     *
+     * https://api.nba.cn/sib/v2/game/schedule?app_key=tiKB2tNdncnZFPOi&app_version=1.1.0&channel=NBA&device_id=98db0f8afd803257f2ba7476528462de&end=2024-05-31&install_id=1984047587&network=N%2FA&os_type=3&os_version=1.0.0&sign=sign_v2&sign2=FA9C061FA59F9472092B907AC5A003B74B27A6DAB65D4B7FFB47BDE5A4C8B031&start=2024-05-25&t=1716628397000
+     */
+    @GET("sib/v2/game/schedule")
+    suspend fun scheduleList(
+        @Query("app_key") appKey: String = "tiKB2tNdncnZFPOi",
+        @Query("app_version") appVersion: String = "1.1.0",
+        @Query("channel") channel: String = "NBA",
+        @Query("device_id") deviceId: String = "98db0f8afd803257f2ba7476528462de",
+        @Query("end") end: String,
+        @Query("install_id") installId: String = "1984047587",
+        @Query("network") network: String,
+        @Query("os_type") osType: String = "3",
+        @Query("os_version") osVersion: String = "1.0.0",
+        @Query("sign") sign: String = "sign_v2",
+        @Query("sign2") sign2: String = "FA9C061FA59F9472092B907AC5A003B74B27A6DAB65D4B7FFB47BDE5A4C8B031",
+        @Query("start") start: String,
+        @Query("t") t: String
+    ): SchedulesResponse
 
     companion object {
         fun create(url: NBAUrls): ApiService {

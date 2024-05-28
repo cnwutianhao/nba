@@ -56,9 +56,16 @@ fun ScheduleListScreen(
 @Composable
 fun ScheduleGroupItem(group: SchedulesGroup) {
     Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)) {
+        // 日期
         Text(text = group.date, style = TextStyle(fontSize = 20.sp))
-        group.games.forEach { game ->
-            ScheduleGameItem(game = game)
+
+        // 赛程
+        if (group.games.isNotEmpty()) {
+            group.games.forEach { game ->
+                ScheduleGameItem(game = game)
+            }
+        } else {
+            Text(text = "当日没有比赛", fontSize = 14.sp)
         }
     }
 }

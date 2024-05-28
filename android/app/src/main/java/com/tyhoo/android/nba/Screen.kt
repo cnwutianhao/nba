@@ -2,6 +2,8 @@ package com.tyhoo.android.nba
 
 import androidx.annotation.StringRes
 import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 
 sealed class Screen(
     @StringRes val resourceId: Int,
@@ -20,4 +22,15 @@ sealed class Screen(
 
     data object ScheduleList :
         Screen(R.string.schedule, R.drawable.schedule, "schedule_list")
+
+    data object NewsDetail : Screen(
+        R.string.news_detail,
+        R.drawable.news,
+        "news_detail/{newsId}",
+        listOf(navArgument("newsId") {
+            type = NavType.StringType
+        })
+    ) {
+        fun createRoute(newsId: String) = "news_detail/$newsId"
+    }
 }

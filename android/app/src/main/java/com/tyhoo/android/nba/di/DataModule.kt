@@ -1,6 +1,8 @@
 package com.tyhoo.android.nba.di
 
 import com.tyhoo.android.nba.api.ApiService
+import com.tyhoo.android.nba.data.NewsDetailDataProvider
+import com.tyhoo.android.nba.data.NewsDetailDataProviderImpl
 import com.tyhoo.android.nba.data.NewsListDataProvider
 import com.tyhoo.android.nba.data.NewsListDataProviderImpl
 import com.tyhoo.android.nba.data.PlayerListDataProvider
@@ -50,5 +52,13 @@ class DataModule {
         @Named("ApiNBA") apiService: ApiService
     ): ScheduleListDataProvider {
         return ScheduleListDataProviderImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNewsDetailDataProvider(
+        @Named("ChinaNBA") apiService: ApiService
+    ): NewsDetailDataProvider {
+        return NewsDetailDataProviderImpl(apiService)
     }
 }

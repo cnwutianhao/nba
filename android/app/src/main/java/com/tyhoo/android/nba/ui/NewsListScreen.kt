@@ -1,6 +1,7 @@
 package com.tyhoo.android.nba.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,20 +32,24 @@ import com.tyhoo.android.nba.viewmodel.NewsListViewModel
 @Composable
 fun NewsListScreen(
     modifier: Modifier = Modifier,
-    viewModel: NewsListViewModel = hiltViewModel()
+    viewModel: NewsListViewModel = hiltViewModel(),
+    onNewsClick: (NewsData) -> Unit
 ) {
-    val newsList by viewModel.newsList.observeAsState(initial = emptyList())
-    NewsListScreen(modifier, newsList = newsList)
+    val newsList by viewModel.newsList.observeAsState(emptyList())
+    NewsListScreen(modifier, newsList, onNewsClick)
 }
 
 @Composable
 fun NewsListScreen(
     modifier: Modifier = Modifier,
-    newsList: List<NewsData>
+    newsList: List<NewsData>,
+    onNewsClick: (NewsData) -> Unit = {}
 ) {
     LazyColumn(modifier = modifier) {
         items(items = newsList) { news ->
-            NewsItem(news = news)
+            NewsItem(news = news) {
+                onNewsClick(news)
+            }
             HorizontalDivider(
                 thickness = 0.5.dp,
                 color = Color.Gray,
@@ -55,11 +60,12 @@ fun NewsListScreen(
 }
 
 @Composable
-fun NewsItem(news: NewsData) {
+fun NewsItem(news: NewsData, onNewsClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp, bottom = 8.dp)
+            .clickable { onNewsClick() }
     ) {
         val imageUrl = news.thumbnailY.ifEmpty { news.thumbnail }
 
@@ -111,6 +117,6 @@ fun PreviewNewsItem() {
         "NBA官网"
     )
     Box(modifier = Modifier.background(color = Color.White)) {
-        NewsItem(news = testNews)
+        NewsItem(news = testNews) {}
     }
 }

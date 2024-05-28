@@ -43,10 +43,29 @@ fun HomeScreen() {
             startDestination = Screen.NewsList.route,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(Screen.NewsList.route) { NewsListScreen(modifier = Modifier.fillMaxSize()) }
+            // 新闻列表
+            composable(route = Screen.NewsList.route) {
+                NewsListScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    onNewsClick = { news ->
+                        navController.navigate(
+                            Screen.NewsDetail.createRoute(newsId = news.newsId)
+                        )
+                    }
+                )
+            }
+
             composable(Screen.TeamList.route) { TeamListScreen(modifier = Modifier.fillMaxSize()) }
             composable(Screen.PlayerList.route) { PlayerListScreen(modifier = Modifier.fillMaxSize()) }
             composable(Screen.ScheduleList.route) { ScheduleListScreen(modifier = Modifier.fillMaxSize()) }
+
+            // 新闻详情
+            composable(
+                route = Screen.NewsDetail.route,
+                arguments = Screen.NewsDetail.navArguments
+            ) {
+                NewsDetailScreen(modifier = Modifier.fillMaxSize())
+            }
         }
     }
 }

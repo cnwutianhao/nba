@@ -1,6 +1,7 @@
 package com.tyhoo.android.nba.api
 
 import com.tyhoo.android.nba.data.NBAUrls
+import com.tyhoo.android.nba.data.NewsDetailResponse
 import com.tyhoo.android.nba.data.NewsResponse
 import com.tyhoo.android.nba.data.PlayersResponse
 import com.tyhoo.android.nba.data.SchedulesResponse
@@ -101,6 +102,26 @@ interface ApiService {
         @Query("start") start: String,
         @Query("t") t: String
     ): SchedulesResponse
+
+    /**
+     * 新闻详情
+     *
+     * https://china.nba.cn/cms/v1/news/info?news_id=2405171130061101&app_key=tiKB2tNdncnZFPOi&os_type=3&os_version=10.0&app_version=1.0.0&install_id=202111201544&network=wifi&t=1716165232291&device_id=6bdaac33a8df720345a767431e62caf3&channel=nba&sign=1429663966aaad6c6fd147dcccbf08f3
+     */
+    @GET("cms/v1/news/info")
+    suspend fun newsDetail(
+        @Query("news_id") newsId: String,
+        @Query("app_key") appKey: String = "tiKB2tNdncnZFPOi",
+        @Query("os_type") osType: String = "3",
+        @Query("os_version") osVersion: String = "10.0",
+        @Query("app_version") appVersion: String = "1.0.0",
+        @Query("install_id") installId: String = "202111201544",
+        @Query("network") network: String = "wifi",
+        @Query("t") t: String,
+        @Query("device_id") deviceId: String = "6bdaac33a8df720345a767431e62caf3",
+        @Query("channel") channel: String = "nba",
+        @Query("sign") sign: String = "1429663966aaad6c6fd147dcccbf08f3"
+    ): NewsDetailResponse
 
     companion object {
         fun create(url: NBAUrls): ApiService {

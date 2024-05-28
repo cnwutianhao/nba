@@ -5,4 +5,5 @@
     <string name="teams">球队</string>
     <string name="players">球员</string>
     <string name="schedule">赛程</string>
+    <string name="news_detail">新闻详情</string>
 </resources>

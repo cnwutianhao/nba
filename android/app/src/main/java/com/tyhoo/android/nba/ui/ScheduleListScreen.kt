@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +56,7 @@ fun ScheduleListScreen(
 
 @Composable
 fun ScheduleGroupItem(group: SchedulesGroup) {
-    Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)) {
+    Column(modifier = Modifier.padding(8.dp)) {
         // 日期
         Text(text = group.date, style = TextStyle(fontSize = 20.sp))
 
@@ -65,59 +66,72 @@ fun ScheduleGroupItem(group: SchedulesGroup) {
                 ScheduleGameItem(game = game)
             }
         } else {
-            Text(text = "当日没有比赛", fontSize = 14.sp)
+            ScheduleNoGameItem()
         }
     }
 }
 
 @Composable
 fun ScheduleGameItem(game: SchedulesGame) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
         ) {
-            val homeTeamScore = if (game.statusText == "未开始") {
-                "--"
-            } else {
-                "${game.homeTeamScore}分"
-            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                val homeTeamScore = if (game.statusText == "未开始") {
+                    "--"
+                } else {
+                    "${game.homeTeamScore}分"
+                }
 
-            val awayTeamScore = if (game.statusText == "未开始") {
-                "--"
-            } else {
-                "${game.awayTeamScore}分"
+                val awayTeamScore = if (game.statusText == "未开始") {
+                    "--"
+                } else {
+                    "${game.awayTeamScore}分"
+                }
+
+                Text(
+                    text = "主队：${game.homeTeamName}(${game.homeTeamTotalWins}) $homeTeamScore",
+                    style = TextStyle(fontSize = 14.sp),
+                    modifier = Modifier.weight(1F)
+                )
+                Text(
+                    text = "客队：${game.awayTeamName}(${game.awayTeamTotalWins}) $awayTeamScore",
+                    style = TextStyle(fontSize = 14.sp),
+                    modifier = Modifier.weight(1F)
+                )
             }
 
             Text(
-                text = "主队：${game.homeTeamName}(${game.homeTeamTotalWins}) $homeTeamScore",
+                text = "状态：${game.statusText}",
                 style = TextStyle(fontSize = 14.sp),
-                modifier = Modifier.weight(1F)
             )
+
             Text(
-                text = "客队：${game.awayTeamName}(${game.awayTeamTotalWins}) $awayTeamScore",
+                text = "类型：${game.seasonName}",
                 style = TextStyle(fontSize = 14.sp),
-                modifier = Modifier.weight(1F)
+            )
+
+            Text(
+                text = "场馆：${game.arenaName}",
+                style = TextStyle(fontSize = 14.sp),
             )
         }
+    }
+}
 
+@Composable
+fun ScheduleNoGameItem() {
+    Card(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = "状态：${game.statusText}",
-            style = TextStyle(fontSize = 14.sp),
-        )
-
-        Text(
-            text = "类型：${game.seasonName}",
-            style = TextStyle(fontSize = 14.sp),
-        )
-
-        Text(
-            text = "场馆：${game.arenaName}",
-            style = TextStyle(fontSize = 14.sp),
+            text = "当日没有比赛",
+            fontSize = 14.sp,
+            modifier = Modifier.padding(8.dp)
         )
     }
 }
@@ -160,5 +174,13 @@ fun PreviewScheduleGameItem() {
     )
     Box(modifier = Modifier.background(Color.White)) {
         ScheduleGameItem(game = testScheduleGame)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewScheduleNoGameItem() {
+    Box(modifier = Modifier.background(Color.White)) {
+        ScheduleNoGameItem()
     }
 }
